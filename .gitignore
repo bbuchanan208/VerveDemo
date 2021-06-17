@@ -7,3 +7,8 @@
 /.idea/modules.xml
 /.idea/vcs.xml
 /.idea/VerveDemo.iml
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
