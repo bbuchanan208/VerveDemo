@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Benji for Verve - Dashboard</title>
+    <link href="{{ url_for('static', filename='styles_dash.css') }}" rel="stylesheet"/>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
+    <script data-search-pseudo-elements defer
+            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"
+            crossorigin="anonymous"></script>
+</head>
+<body class="nav-fixed">
+<nav class="navbar navbar-marketing bg-white navbar-light">
+    <div class="container px-5">
+        <br/>
+        <a class="navbar-brand text-dark" href="index.html">BenjiForVerveMotion.com</a>
+
+        <br/>
+    </div>
+</nav>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-xl px-4">
+            <div class="page-header-content pt-4">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-auto mt-4">
+                        <h1 class="mb-0">SafeLift Minimalist Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main page content-->
+        <div class="container-xl px-4 mt-5">
+            <div class="row">
+                {% if context.maintenance_needed %}
+                    <div class="card bg-red border-0">
+                        <div class="card-body">
+                            <h5 class="text-white-50">Health</h5>
+                            <div class="mb-4">
+                                <span class="display-4 text-white">Maintainence is required</span>
+                            </div>
+                        </div>
+                    </div>
+                {% elif context.firmware_needs_update %}
+                    <div class="card bg-yellow border-0">
+                        <div class="card-body">
+                            <h5 class="text-white-75">Health</h5>
+                            <div class="mb-4">
+                                <span class="display-4 text-white">A new firmware update is available</span>
+                            </div>
+                            <a class="btn btn-primary p-3" href="#!" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="The user would be redirected to the update page" title="Firmware Update">Update</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card bg-green border-0">
+                        <div class="card-body">
+                            <h5 class="text-white-50">Health</h5>
+                            <div class="mb-4">
+                                <span class="display-4 text-white">Everything looks good!</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <hr/>
+                <div class="card bg-primary border-0">
+                    <div class="card-body">
+                        <h5 class="text-white-50">Battery</h5>
+                        <div class="mb-4">
+                            <span class="display-4 text-white">{{ context.hours_remaining }}:{{ context.minutes_remaining }}</span>
+                            <span class="text-white-50">estimated time remaining</span>
+                        </div>
+                        <div class="progress rounded-pill">
+                            {% if context.battery_percent > 30 %}
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-green rounded-pill"
+                                     style="width: {{ context.battery_percent }}%" role="progressbar"
+                                     aria-valuenow="{{ context.battery_percent }}" aria-valuemin="0"
+                                     aria-valuemax="100">{{ context.battery_percent }}%
+                                </div>
+                            {% elif context.battery_percent > 15 %}
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-yellow rounded-pill"
+                                     style="width: {{ context.battery_percent }}%" role="progressbar"
+                                     aria-valuenow="{{ context.battery_percent }}" aria-valuemin="0"
+                                     aria-valuemax="100">{{ context.battery_percent }}%
+                                </div>
+                            {% else %}
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-red rounded-pill"
+                                     style="width: {{ context.battery_percent }}%" role="progressbar"
+                                     aria-valuenow="{{ context.battery_percent }}" aria-valuemin="0"
+                                     aria-valuemax="100">{{ context.battery_percent }}%
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="card mb-5 border-0">
+                    <div class="card-header">Reports</div>
+                    <div class="list-group list-group-flush small">
+                        <a class="list-group-item list-group-item-action" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="The user would be redirected to the movement report" title="Movement Report" href="#!">
+                            <i class="fas fa-walking fa-fw text-purple me-2"></i>
+                            Movement Report
+                        </a>
+                        <a class="list-group-item list-group-item-action" href="#!" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="The user would be redirected to the error report" title="Error Report">
+                            <i class="fas fa-exclamation fa-fw text-red me-2"></i>
+                            Error Reports
+                        </a>
+
+                    </div>
+                    <div class="card-footer position-relative border-top-0">
+                        <a class="stretched-link" href="#!" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="The user would be redirected to the report error page" title="Report Error">
+                            <div class="text-xs d-flex align-items-center justify-content-between">
+                                Report Error
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <footer class="footer-admin mt-auto footer-light">
+        <div class="container-xl px-4">
+            <div class="row">
+                <div class="col-md-6 small">Copyright &copy; BenjiForVerveMotion.com 2021</div>
+            </div>
+        </div>
+    </footer>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
